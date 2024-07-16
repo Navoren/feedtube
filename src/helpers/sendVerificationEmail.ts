@@ -10,7 +10,7 @@ export async function sendVerificationEmail(
     try {
         await resend.emails.send({
             from: 'onboarding@resend.dev',
-            to: 'namantomar1453@gmail.com',
+            to: email,
             subject: 'Verification Code for FeedTube',
             react: VerificationEmail({username, otp: verifyCode}),
         });
