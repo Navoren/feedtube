@@ -1,9 +1,12 @@
 import Groq from "groq-sdk";
 import { StreamingTextResponse, streamText } from 'ai';
+import { NextResponse } from "next/server";
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
-export async function GET(req: Request) {
+export const runtime = 'edge';
+
+export async function POST(req: Request) {
     try {
     const chatCompletion = await getGroqChatCompletion();
     // Print the completion returned by the LLM.
@@ -20,11 +23,19 @@ export async function GET(req: Request) {
         headers: { "Content-Type": "text/plain" },
     });
     } catch (error) {
-        return Response.json({
-            success: false,
-            message: "Error in Getting Chat Completion",
-            error: error
-        }, { status: 500 });
+        if (error instanceof Groq.GroqError) {
+            const {name, message} = error;
+            return NextResponse.json({
+                name, message
+            });
+        }
+        else {
+            return Response.json({
+                success: false,
+                message: "Error in Getting Chat Completion",
+                error: error
+            }, { status: 500 });
+        }
     }
     }
 
