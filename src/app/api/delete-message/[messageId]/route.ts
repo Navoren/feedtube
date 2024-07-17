@@ -10,7 +10,7 @@ export async function DELETE(req: Request,
     await dbConnect();
 
     const session = await getServerSession(authOptions);
-    const _user: User = session?.user as User;
+    const _user = session?.user as User;
 
     if(!session || !_user) {
         return Response.json({
