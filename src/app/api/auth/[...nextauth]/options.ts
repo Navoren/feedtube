@@ -2,7 +2,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import bcrypt from 'bcryptjs';
 import UserModel from '@/models/User.model';
-import dbConnect  from '@/lib/dbConnect';
+import dbConnect from '@/lib/dbConnect';
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -16,14 +16,14 @@ export const authOptions: NextAuthOptions = {
             async authorize(credentials: any): Promise<any> { 
                 await dbConnect();
                 try {
-                    const user  = await UserModel.findOne({
+                    const user = await UserModel.findOne({
                         $or: [
-                            { email: credentials.identifier.email },
-                            { username: credentials.identifier.username }
+                            { email: credentials.identifier },
+                            { username: credentials.identifier }
                         ]
-                    })
+                    });
                     if (!user) {
-                        throw new Error('No user found');
+                        throw new Error('No user found!!');
                     }
 
                     if(!user.isVerified) {
@@ -36,7 +36,8 @@ export const authOptions: NextAuthOptions = {
                     }
                     return user;
                 } catch (error: any) {
-                    throw new Error('Error while authorizing user');
+                    console.error(error);
+                    throw new Error(error.message);
                 }
             }
 
@@ -69,5 +70,5 @@ export const authOptions: NextAuthOptions = {
     session: {
         strategy: "jwt"
     },
-    secret: process.env.SECRET_KEY,
+    secret: process.env.NEXTAUTH_SECRET,
 };
