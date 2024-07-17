@@ -1,0 +1,23 @@
+[
+    {
+      "title": "Message from Alex",
+      "content": "Are you coming to the party tonight?",
+      "received": "15 minutes ago"
+    },
+    {
+      "title": "Message from Jamie",
+      "content": "Can you send me the notes from class?",
+      "received": "2 hours ago"
+    },
+    {
+      "title": "Message from Taylor",
+      "content": "What's the best place to get coffee around here?",
+      "received": "1 day ago"
+    },
+    {
+      "title": "Message from Morgan",
+      "content": "Do you want to go hiking this weekend?",
+      "received": "5 minutes ago"
+    }
+  ]
+  

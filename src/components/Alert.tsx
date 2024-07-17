@@ -15,7 +15,7 @@ export function AlertDialogDemo({ onDeleteConfirm }: { onDeleteConfirm: () => vo
     return (
         <AlertDialog>
             <AlertDialogTrigger asChild>
-                <Button variant="destructive">Show Dialog</Button>
+                <Button variant="destructive">Delete</Button>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>

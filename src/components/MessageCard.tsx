@@ -11,6 +11,7 @@ import { Message } from "@/models/User.model";
 import axios, { AxiosError } from "axios";
 import { ApiResponse } from "@/types/ApiResponse";
 import { useToast } from "./ui/use-toast";
+import dayjs from 'dayjs';
 
 type MessageCardProps = {
     message: Message;
@@ -42,8 +43,8 @@ const MessageCard = ({ message, onMessageDelete }: MessageCardProps) => {
     return (
         <Card>
             <CardHeader>
-                <CardTitle>Card Title</CardTitle>
-                <CardDescription>Card Description</CardDescription>
+                <CardTitle>{ message.content}</CardTitle>
+                <CardDescription>{dayjs(message.createdAt).format('MMM D, YYYY h:mm A')}</CardDescription>
                 <AlertDialogDemo onDeleteConfirm={handleDeleteConfirm} />
             </CardHeader>
             <CardContent>
