@@ -3,7 +3,7 @@ import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Mail } from 'lucide-react';
+import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import Autoplay from 'embla-carousel-autoplay';
 import messages from '@/messages.json';
@@ -58,8 +58,13 @@ const Home = () => {
       </Carousel>
     </main>
 
-    <footer className="text-center p-4 md:p-6">
-      © 2024 FeedTube. All rights reserved.
+      <footer className="text-center p-4 md:p-6 flex flex-col">
+        <div>
+          <Link href={'https://github.com/Navoren'}><Button variant="ghost" className='m-3'><Github /></Button></Link>
+        <Link href={'https://twitter.com/nmntmr'}><Button variant="ghost" className='m-3'><Twitter /></Button></Link>
+          <Link href={'https://www.linkedin.com/in/navoren/'}><Button variant="ghost" className='m-3'><Linkedin /></Button></Link>
+        </div>
+        Made with ❤️ by @navoren
     </footer>
   </>
   )
