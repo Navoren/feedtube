@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# FeedTube
+
+FeedTube is an anonymous feedback-giving application built on Next.js, Auth.js, and Zod. It leverages Groq AI for message suggestions and provides the option to resend email verification.
+
+## Features
+
+- Anonymous Feedback: Users can provide feedback without revealing their identity.
+- Next.js: FeedTube is built using the Next.js framework, which allows for efficient server-side rendering and seamless client-side navigation.
+- Auth.js: User authentication is handled using Auth.js, providing secure and customizable authentication flows.
+- Zod: FeedTube utilizes Zod for data validation, ensuring that feedback submissions meet the required criteria.
+- Groq AI: The application incorporates Groq AI to suggest message content, making it easier for users to provide feedback.
+- Resend Email Verification: In case of email verification failure, FeedTube offers the option to resend the verification email.
 
 ## Getting Started
 
-First, run the development server:
+To get started with FeedTube, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Clone the repository: `git clone https://github.com/your-username/feedtube.git`
+2. Install dependencies: `npm install`
+3. Set up environment variables: Create a `.env` file and add the necessary environment variables.
+4. Start the development server: `npm run dev`
+5. Open your browser and navigate to `http://localhost:3000`
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Usage
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Sign up or log in to your FeedTube account.
+2. Provide anonymous feedback by filling out the feedback form.
+3. Optionally, you can use the suggested message content provided by Groq AI.
+4. Submit your feedback.
+5. Check your email for a verification link (if required).
+6. Explore the feedback provided by other users.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Contributing
 
-## Learn More
+Contributions are welcome! If you'd like to contribute to FeedTube, please follow these guidelines:
 
-To learn more about Next.js, take a look at the following resources:
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your changes to your forked repository.
+5. Submit a pull request.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## License
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+FeedTube is licensed under the [MIT License](https://opensource.org/licenses/MIT).
