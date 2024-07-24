@@ -4,11 +4,7 @@ FeedTube is an anonymous feedback-giving application built on Next.js, Auth.js, 
 
 ## Live Demo
 
-
-
-Uploading Feed Tube - Brave 2024-07-18 18-17-44.mp4…
-
-
+https://github.com/user-attachments/assets/82a47708-6dd2-49b3-bf52-6fd5419a2fb5
 
 ## Features
 
