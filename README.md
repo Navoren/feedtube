@@ -2,6 +2,14 @@
 
 FeedTube is an anonymous feedback-giving application built on Next.js, Auth.js, and Zod. It leverages Groq AI for message suggestions and provides the option to resend email verification.
 
+## Live Demo
+
+
+
+Uploading Feed Tube - Brave 2024-07-18 18-17-44.mp4…
+
+
+
 ## Features
 
 - Anonymous Feedback: Users can provide feedback without revealing their identity.
