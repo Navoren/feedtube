@@ -30,7 +30,7 @@ export async function DELETE(req: Request,
                 }
             }
         });
-
+        
         if(updateResult.modifiedCount === 0) {
             return Response.json({
                 success: false,
