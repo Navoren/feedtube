@@ -1,8 +1,12 @@
-import { Message } from "@/models/User.model";
+import { Topic, Feedback } from "@/lib/types";
 
-export interface ApiResponse{
-    success: boolean;
-    message: string;
-    isAcceptingMeassages?: boolean;
-    messages?: Array<Message>;
+export interface ApiResponse {
+  success: boolean;
+  message?: string;
+  isAcceptingMessages?: boolean;
+  topic?: Topic;
+  topics?: Topic[];
+  feedback?: Feedback[];
+  shareableLink?: string;
+  error?: any;
 }

@@ -3,7 +3,7 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/models/User.model";
 import { User } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import mongoose from "mongoose";
+import TopicModel from "@/models/Topic.model";
 
 export async function GET(req: Request) { 
     await dbConnect();
@@ -17,34 +17,39 @@ export async function GET(req: Request) {
         }, { status: 401 });
     }
 
-    const userId = new mongoose.Types.ObjectId(user._id);
+    const { searchParams } = new URL(req.url);
+    const topicId = searchParams.get("topicId");
+
+    if (!topicId) {
+        return Response.json({
+            success: false, message: "Topic ID required"
+        }, { status: 404 });
+    }
+
     try {
-        const user = await UserModel.aggregate([
-            { $match: { _id: userId } },
-            { $unwind: '$messages' },
-            { $sort: { 'messages.createdAt': -1 } },
-            { $group: { _id: '$_id', messages: { $push: '$messages' } } },
-          ]).exec();
-        if(!user || user.length === 0) {
+        const topic = await TopicModel.findById(topicId, "feedback").exec();
+
+        if (!topic) {
             return Response.json({
-                success: false,
-                message: "No Messages Found"
+            success: false, message: "Topic not found"
             }, { status: 404 });
         }
-        else {
-            return Response.json({
-                success: true,
-                messages: user[0].messages
-            }, { status: 200 });
-        }
+
+        const sortedFeedback = topic.feedback.sort(
+      (a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    );
+
+    return Response.json(
+      { success: true, feedback: sortedFeedback },
+      { status: 200 }
+    );
+
     } catch (error) {
-        console.error('Error Getting Messages:', error);
-        return Response.json({
-            success: false,
-            message: "Error in Getting Messages",
-            error: error
-        }, { status: 500 });
-        
+        console.error("Error Getting Feedback:", error);
+        return Response.json(
+      { success: false, message: "Error in Getting Feedback", error },
+      { status: 500 }
+    );
     }
 
 }

@@ -1,46 +1,54 @@
+// app/api/send-message/route.ts
+import { getServerSession } from "next-auth";
 import dbConnect from "@/lib/dbConnect";
-import { messageSchema } from "@/schemas/messageSchema";
-import UserModel from "@/models/User.model";
-import { Message } from "@/models/User.model";
+import { authOptions } from "../auth/[...nextauth]/options";
+import TopicModel from "@/models/Topic.model";
 
-export async function POST(req: Request) { 
-    await dbConnect();
-    const { username, content } = await req.json();
-    try {
-        const user = await UserModel.findOne({ username });
-        if (!user) {
-            return Response.json({
-                success: false,
-                message: "User not found"
-            }, { status: 400 });
-        }
-        if (!user.isAcceptingMessages) {
-            return Response.json({
-                success: false,
-                message: "User is not accepting messages"
-            }, { status: 400 });
-        }
-        const newMessage = {
-            content,
-            createdAt: new Date()
-        }
-        user.messages.push(newMessage as Message);
-        await user.save();
+export async function POST(req: Request) {
+  await dbConnect();
+  const session = await getServerSession(authOptions);
+  const user = session?.user;
 
-        return Response.json({
-            success: true,
-            message: "Message Sent",
-            newMessage
-        }, { status: 200 });
+  if (!session || !user) {
+    return Response.json(
+      { success: false, message: "Not authenticated" },
+      { status: 401 }
+    );
+  }
 
-    } catch (error) {
-        console.error('Error Adding Messages:', error);
+  try {
+    const { topicId, rating, text } = await req.json();
 
-        return Response.json({
-            success: false,
-            message: "Error Adding Messages",
-            error: error
-        }, { status: 500 });
-        
+    if (!topicId || !rating || !text) {
+      return Response.json(
+        { success: false, message: "Topic ID, rating, and text required" },
+        { status: 400 }
+      );
     }
+
+    const newFeedback = { rating, text, createdAt: new Date() };
+    const updatedTopic = await TopicModel.findByIdAndUpdate(
+      topicId,
+      { $push: { feedback: newFeedback } },
+      { new: true }
+    );
+
+    if (!updatedTopic) {
+      return Response.json(
+        { success: false, message: "Topic not found" },
+        { status: 404 }
+      );
+    }
+
+    return Response.json(
+      { success: true, message: "Feedback submitted" },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error Submitting Feedback:", error);
+    return Response.json(
+      { success: false, message: "Error in Submitting Feedback", error },
+      { status: 500 }
+    );
+  }
 }

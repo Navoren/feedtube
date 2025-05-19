@@ -4,7 +4,6 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/toaster"
-import Navbar from '@/components/Navbar'
 
 
 const inter = Inter({ subsets: ["latin"] });

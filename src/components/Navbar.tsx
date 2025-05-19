@@ -17,9 +17,7 @@ const Navbar = () => {
                 {
                     session ? (
                         <div>
-                            <Link href={`/u/${user.username}`}>
-                                <span className="text-xl font-light mx-3">Welcome, <span className="font-normal underline">{user.username}</span>.</span>
-                            </Link>
+                            <span className="text-xl font-light mx-3">Welcome, <span className="font-normal">{user.username}</span>.</span>
                             <Button onClick={() => signOut()}>Log Out</Button>
                         </div>
                     ) : (
