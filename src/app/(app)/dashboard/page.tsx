@@ -7,7 +7,7 @@ import { useToast } from "@/components/ui/use-toast";
 import { Topic, Feedback } from "@/lib/types";
 import { ApiResponse } from "@/types/ApiResponse";
 import axios, { AxiosError } from "axios";
-import { Loader2, RefreshCcw, Link as LinkIcon, Trash2 } from "lucide-react";
+import { Loader2, RefreshCcw, Link as LinkIcon, Trash2,Star} from "lucide-react";
 import { User } from "next-auth";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -254,61 +254,75 @@ return (
         )}
         </Button>
 
-        <Card>
-        <CardHeader>
-            <h2 className="text-2xl font-semibold">Your Topics</h2>
-        </CardHeader>
-        <CardContent>
-            {topics.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {topics.map((topic) => (
-                <div
-                    key={topic._id}
-                    className="border rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow"
-                >
-                    <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-semibold">{topic.name}</h3>
-                    <div className="flex space-x-2">
-                        <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => copyTopicLink(topic.slug)}
-                        >
-                        <LinkIcon className="h-4 w-4 mr-2" />
-                        Copy Link
-                        </Button>
-                        <Button
-                        variant="destructive"
-                        size="sm"
-                        onClick={() => handleDeleteTopic(topic._id)}
-                        >
-                        <Trash2 className="h-4 w-4 mr-2" />
-                        Delete
-                        </Button>
-                    </div>
-                    </div>
-                    <p className="text-sm text-gray-500">
-                    Created: {new Date(topic.createdAt).toLocaleDateString()}
+        <Card className="border-muted shadow-sm">
+      <CardHeader>
+        <h2 className="text-3xl font-bold ">Your Topics</h2>
+      </CardHeader>
+      <CardContent>
+        {topics.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {topics.map((topic) => (
+              <div
+                key={topic._id}
+                className="rounded-2xl border p-5 shadow-sm hover:shadow-md transition-all duration-200"
+              >
+                <div className="flex items-start justify-between">
+                  <div>
+                    <h3 className="text-xl font-semibold ">{topic.name}</h3>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Created on{" "}
+                      <span className="font-medium ">
+                        {new Date(topic.createdAt).toLocaleDateString()}
+                      </span>
                     </p>
-                    <p className="mt-2">
-                    Average Rating: {calculateAverageRating(topic.feedback)} / 5
-                    </p>
-                    <p>Total Feedback: {topic.feedback.length}</p>
+                  </div>
+                  <div className="flex space-x-2">
                     <Button
-                    variant="link"
-                    className="mt-2 p-0"
-                    onClick={() => router.push(`/dashboard/topics/${topic.slug}`)}
+                      variant="outline"
+                      size="sm"
+                      onClick={() => copyTopicLink(topic.slug)}
                     >
-                    View Feedback
+                      <LinkIcon className="h-4 w-4 mr-1" />
+                      Copy
                     </Button>
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      onClick={() => handleDeleteTopic(topic._id)}
+                    >
+                      <Trash2 className="h-4 w-4 mr-1" />
+                      Delete
+                    </Button>
+                  </div>
                 </div>
-                ))}
-            </div>
-            ) : (
-            <p>No topics created yet.</p>
-            )}
-        </CardContent>
-        </Card>
+
+                <div className="mt-4 space-y-1 text-sm ">
+                  <p className="flex items-center gap-1">
+                    <Star className="w-4 h-4 text-yellow-500" />                  
+                    {calculateAverageRating(topic.feedback)} / 5
+                  </p>
+                  <p>
+                    <span className="font-medium">Total Feedback:</span>{" "}
+                    {topic.feedback.length}
+                  </p>
+                </div>
+
+                <Button
+                  variant="link"
+                  className="mt-3 p-0 text-blue-300 hover:underline"
+                  onClick={() => router.push(`/dashboard/topics/${topic.slug}`)}
+                >
+                  View Feedbacks →
+                </Button>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <p className="text-muted-foreground">No topics created yet.</p>
+        )}
+      </CardContent>
+    </Card>
+
     </div>
     </div>
 );
