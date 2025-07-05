@@ -13,7 +13,7 @@ https://github.com/user-attachments/assets/82a47708-6dd2-49b3-bf52-6fd5419a2fb5
 - Auth.js: User authentication is handled using Auth.js, providing secure and customizable authentication flows.
 - Zod: FeedTube utilizes Zod for data validation, ensuring that feedback submissions meet the required criteria.
 - Groq AI: The application incorporates Groq AI to suggest message content, making it easier for users to provide feedback.
-- Resend Email Verification: In case of email verification failure, FeedTube offers the option to resend the verification email.
+- Brevp Email Verification: In case of email verification failure, FeedTube offers the option to resend the verification email.
 
 ## Getting Started
 
