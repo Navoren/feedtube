@@ -6,15 +6,6 @@ import TopicModel from "@/models/Topic.model";
 
 export async function POST(req: Request) {
   await dbConnect();
-  const session = await getServerSession(authOptions);
-  const user = session?.user;
-
-  if (!session || !user) {
-    return Response.json(
-      { success: false, message: "Not authenticated" },
-      { status: 401 }
-    );
-  }
 
   try {
     const { topicId, rating, text } = await req.json();
